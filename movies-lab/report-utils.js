@@ -14,8 +14,9 @@ export const sortByYear = movies => [...movies].sort((a, b) => a.year - b.year);
 export const markAsWatched = (movies, id) =>
   movies.map(movie => (movie.id === id ? { ...movie, watched: true } : movie));
 
-export const renameActor = (movie, index, newName) => {
-  const copy = { ...movie };
-  copy.cast[index].name = newName;
-  return copy;
-};
+export const renameActor = (movie, index, newName) => ({
+  ...movie,
+  cast: movie.cast.map((actor, i) =>
+    i === index ? { ...actor, name: newName } : actor
+  ),
+});
